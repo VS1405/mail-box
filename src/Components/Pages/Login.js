@@ -1,8 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
-import { auth } from '../../firebase'
 
 import './Login.css'
 
