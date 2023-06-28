@@ -1,0 +1,13 @@
+.compose-email-container {
+    width: 70%;
+    margin: auto;
+  }
+  
+  .editor-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+Form.Control{
+    border: transparent;
+}
