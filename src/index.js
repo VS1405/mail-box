@@ -7,12 +7,17 @@ import App from './App';
 import '../node_modules/react-bootstrap/dist/react-bootstrap';
 import "../node_modules/bootstrap/dist/css/bootstrap.css"
 
+import { Provider } from 'react-redux';
+import indexStore from './Store/indexStore';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <Provider store={indexStore}>
   <React.StrictMode>
     <App />
   </React.StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,0 +1,15 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.me-auto{
+    display: flex;
+    justify-content: space-between;
+
+}
+.email{
+    margin-left: 20px;
+    font-weight: bold;
+    color: gray;
+}

@@ -1,21 +1,24 @@
 import React, { useState, useRef } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import { authAction } from '../../Store/authSlice'
+import { useDispatch } from 'react-redux'
 
 import './Login.css'
 
 const LogIn = () => {
     // const auth = getAuth();
-    const [login, steLogin] = useState(false);
+    const [login, setLogin] = useState(false);
     const [message, setMessage] = useState('');
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
 
     const EmailRef = useRef();
     const PasswordRef = useRef()
     const ConfirmPasswordRef = useRef();
 
     const loginSwappingHandler = () => {
-        steLogin((prev) => !prev)
+        setLogin((prev) => !prev)
     }
 
     const SubmitHandler = async (e) => {
@@ -63,6 +66,9 @@ const LogIn = () => {
             })
             .then((data) => {
                 console.log(data)
+                dispatch(authAction.logIn())
+                localStorage.setItem('idToken', data.idToken)
+                localStorage.setItem('Email', data.email)
                 if (!login) {
                     navigate('/') 
                 } else {

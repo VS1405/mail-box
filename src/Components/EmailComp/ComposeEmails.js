@@ -1,77 +1,85 @@
-import React, { useState, useRef } from "react";
-import { Row, Col } from "react-bootstrap";
+import React,{useState , useRef, Fragment} from "react";
+import {  Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
+import { EditorState } from 'draft-js';
+import emailjs from 'emailjs-com'
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import "./ComposeEmail.css";
+import './ComposeEmail.css'
+import MainNavigation from "../Pages/MainNavigation";
 
-const ComposeEmails = () => {
-  const inputMailRef = useRef();
-  const inputSubjectRef = useRef();
 
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+const ComposeEmail = () => {
+  // const dispatch = useDispatch()
+  const inputMailRef =useRef()
+  const inputSubjectRef = useRef()
 
-  const editorHandler = (editorState) => {
-    setEditorState(editorState);
-  };
+  const [editorState , setEditorState] = useState(()=> EditorState.createEmpty() )
 
-  const composeMailHandler = (e) => {
-    e.preventDefault();
-    const contentState = editorState.getCurrentContent();
-    const rawContent = convertToRaw(contentState);
-    alert('It work properly')
-    // Handle sending email with rawContent
-  };
+  const editorHandler=(editorState)=>{
+     setEditorState(editorState)
+  }
 
+  const composeMailHandler=(event)=>{
+     event.preventDefault();
+    console.log("compose button clicked")
+    
+    const mailData = {
+      from : localStorage.getItem('email'),
+      to : inputMailRef.current.value,
+      title : inputSubjectRef.current.value,
+      message : editorState.getCurrentContent().getPlainText()
+    }
+    console.log(mailData)
+    emailjs.sendForm('service_p1js5pn', 'template_wxk2ilh', event.target, 'Pe6o93UNoVPor3d8q')
+    .then((result) => {
+        console.log(result.text);
+        alert('Send Email')
+    }, (error) => {
+        console.log(error.text);
+        alert(JSON.stringify(error))
+    });
+    // dispatch(addMail(mailData))
+    inputMailRef.current.value=""
+     inputSubjectRef.current.value=""
+    //  setEditorState(null)
+  }
   return (
-    <div className="compose-email-container">
-      <Form onSubmit={composeMailHandler} className="text-center mt-2 mr-3">
-        <Row className="mb-1" style={{alignItems: 'center'}}>
+    <Fragment>
+      <div>
+      <MainNavigation />
+      </div>
+    <div style={{width:60+"%" , justifyContent:"center" , margin:"auto"} }>
+      <Form onSubmit={composeMailHandler}   className="text-center mt-2 mr-3">
+      <Button variant="secondary" type="submit" className="mt-2">Send</Button> 
+
+        <Row >
           <Col xs={1}>
-            <Form.Label >To</Form.Label>
+            <Form.Label>To</Form.Label>
           </Col>
           <Col>
-            <Form.Control
-              ref={inputMailRef}
-              type="email"
-              placeholder="Enter email"
-              // style={{border: 'none'}}
-            />
+            <Form.Control ref={inputMailRef} type="email" placeholder="Enter email" />
           </Col>
         </Row>
-            <hr />
-        <Row className="mb-3">
+        <hr />
+        <Row>
           <Col>
-            <Form.Control
-              ref={inputSubjectRef}
-              type="text"
-              placeholder="Subject"
-            />
+            <Form.Control ref={inputSubjectRef} type="text" placeholder="Subject" />
           </Col>
         </Row>
-        
         <hr />
         <Row className="border-1 editor-class">
-          <Editor
+            <Editor 
             editorState={editorState}
             onEditorStateChange={editorHandler}
-            // toolbarClassName="toolbarClassName"
-            wrapperClassName="wrapperClassName"
-            editorClassName="editorClassName"
-          />
-        </Row>
-       <hr/>
-        <Row style={{width: 20 + '%'}}>
-          <Button variant="primary" type="submit" className="mt-2">
-            Send
-          </Button>
+            />
         </Row>
       </Form>
     </div>
+    </Fragment>
   );
 };
 
-export default ComposeEmails;
+export default ComposeEmail;
