@@ -5,10 +5,11 @@ import LogIn from './Components/Pages/Login';
 // import Welcome from './Components/Pages/Welcome';
 import ComposeEmails from './Components/EmailComp/ComposeEmails';
 import MainNavigation from './Components/Pages/MainNavigation';
-import IndexEmail from './Components/EmailComp/IndexEmail';
+import InboxEmail from './Components/EmailComp/IndexEmail';
 import SendEmail from './Components/EmailComp/SendEmail';
 
 function App() {
+  
   return (
     <Fragment>
       <Router>
@@ -16,7 +17,7 @@ function App() {
           <Route path='/' element={<LogIn />} exact/>
           <Route path='/Welcome'  element={<MainNavigation />}/>
           <Route path='/Compose' element={<ComposeEmails />} />
-          <Route path='/InboxEmail' element={<IndexEmail />} />
+          <Route path='/InboxEmail' element={<InboxEmail />} />
           <Route path='/SentEmail' element={<SendEmail />} />
         </Routes>
       </Router>

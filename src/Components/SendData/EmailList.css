@@ -1,0 +1,28 @@
+li{
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+li:hover{
+    cursor: pointer;
+}
+.emailContainer{
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border-bottom: 1px solid gray;
+}
+.sendTo{
+    width: 40%;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 3rem;
+}
+.messageTitle{
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+align-content: center;
+}

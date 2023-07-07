@@ -1,17 +1,19 @@
 import React, { Fragment } from 'react';
 import MainNavigation from '../Pages/MainNavigation';
 
-const IndexEmail = () => {
+const InboxEmail = () => {
+
+  console.log("Inside inbox mails")
+  const email = localStorage.getItem("Email")
+
+  
   return (
     <Fragment>
       <div>
         <MainNavigation />
       </div>
-      <div>
-        <h1> Index Box</h1>
-      </div>
     </Fragment>
   )
 }
 
-export default IndexEmail
+export default InboxEmail
